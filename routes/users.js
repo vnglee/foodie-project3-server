@@ -4,11 +4,20 @@ var router = express.Router();
 const jwt = require('jsonwebtoken')
 
 const User = require('../models/User')
+const Post = require('../models/Post')
 
 router.get('/profile/:id', (req, res, next) => {
     User.findById(req.params.id)
     .then((foundUser) => {
-        res.json(foundUser)
+        Post.find({author: foundUser._id})
+            .populate("author likes")
+            .populate({path: "comments", populate: {path: "author"}})
+            .then((foundPosts) => {
+                res.json({user: foundUser, posts: foundPosts})
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     })
     .catch((err) => {
         console.log(err)    
