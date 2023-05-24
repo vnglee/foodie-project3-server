@@ -83,6 +83,38 @@ router.post('/edit/:id', (req, res, next) => {
     })
 })
 
+// then((foundPost) => if foundPost.likes.includes(req.user._id)
+
+router.post('/like', isAuthenticated, (req, res, next) => {
+    Post.findById(req.body.postId)
+    .then((foundPost) => {
+        if(foundPost.likes.includes(req.user._id))
+        res.status(400).json({ message: "Not authorized" })
+        return 
+    })
+    Post.findByIdAndUpdate(req.body.postId, {
+        $push:{likes: req.user._id}
+    }, {
+        new: true
+    })
+    .then(response => res.json(response))
+    .catch((err) => {
+        console.log(err)
+    })
+})
+
+router.post('/unlike', isAuthenticated, (req, res, next) => {
+    Post.findByIdAndUpdate(req.body.postId, {
+        $pull:{likes: req.user._id}
+    }, {
+        new: true
+    })
+    .then(response => res.json(response))
+    .catch((err) => {
+        console.log(err)
+    })
+})
+
 
 
 module.exports = router;
