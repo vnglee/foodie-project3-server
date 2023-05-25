@@ -23,11 +23,18 @@ app.use(express.static(path.join(__dirname, "public")));
 app.set("trust proxy", 1);
 app.enable("trust proxy");
 
+
 app.use(
   cors({
-    origin: ["http://localhost:3000"], // <== URL of our future React app
+    origin: ["https://master--friendly-palmier-e88fe8.netlify.app/"], // <== URL of our future React app
   })
 );
+
+// app.use(
+//   cors({
+//     origin: ["http://localhost:3000"], // <== URL of our future React app
+//   })
+// );
 
 // app.use('/', indexRouter);
 app.use("/users", usersRouter);
