@@ -31,7 +31,14 @@ router.post("/create", isAuthenticated, (req, res, next) => {
   })
     .then((createdPost) => {
       console.log("req body:", req.body);
-      res.json(createdPost);
+    //   res.json(createdPost);
+        return createdPost
+    })
+    .then((toPopulate) => {
+        return toPopulate.populate("author")
+    })
+    .then((populated) => {
+        res.json(populated)
     })
     .catch((err) => {
       console.log(err);

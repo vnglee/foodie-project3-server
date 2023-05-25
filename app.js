@@ -26,7 +26,7 @@ app.enable("trust proxy");
 
 app.use(
   cors({
-    origin: ["https://master--friendly-palmier-e88fe8.netlify.app/"], // <== URL of our future React app
+    origin: ["https://foodie-project3.netlify.app"], // <== URL of our future React app
   })
 );
 
