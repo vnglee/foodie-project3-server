@@ -59,54 +59,6 @@ router.post('/signup', (req, res, next) => {
 });
 
 
-
-
-
-// router.post('/signup', (req, res, next) => {
-//     const { email, password, name } = req.body;
-   
-
-//     if (email === '' || password === '' || name === '') {
-//       res.status(400).json({ message: "Provide email, password and name" });
-//       return;
-//     }
-      
-//     User.findOne({ email })
-//       .then((foundUser) => {
-
-//         if (foundUser) {
-//           res.status(400).json({ message: "User already exists." });
-//           return;
-//         }
-   
-//         const salt = bcrypt.genSaltSync(saltRounds);
-//         const hashedPassword = bcrypt.hashSync(password, salt);
-    
-//         return User.create({ email, password: hashedPassword, name });
-//       })
-//       .then((createdUser) => {
- 
-//         const { email, _id, profilePic, name } = createdUser;
-      
-//         const payload = { email, _id, profilePic, name };
-   
-//         const authToken = jwt.sign( 
-//             payload,
-//             process.env.SECRET,
-//             { algorithm: 'HS256', expiresIn: "6h" }
-//           );
-
-//         console.log("Signup", payload)
-   
-//         res.status(201).json( { authToken: authToken, user: payload });
-//       })
-//       .catch(err => {
-//         console.log(err);
-//         res.status(500).json({ message: "Internal Server Error" })
-//       });
-//   });
-   
-
 // POST  /auth/login
 router.post('/login', (req, res, next) => {
     const { email, password } = req.body;
